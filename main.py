@@ -18,6 +18,7 @@ def send_welcome(message):
 def handle_message(message):
     try:
         link = message.text
+        logger.info(f"Downloading {link}")
         bot.reply_to(message, f"Downloading: {link}")
 
         download_path = "songs/"
@@ -42,7 +43,7 @@ def handle_message(message):
             else:
                 bot.reply_to(message, "No files found after downloading.")
         else:
-            error_message = process.stderr.decode("utf-8")
+            error_message = process.stdout.decode("utf-8")
             logger.error(f"Download error: {error_message}")
             bot.reply_to(message, f"Download error: {error_message}")
 
